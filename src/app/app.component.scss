@@ -1,0 +1,28 @@
+.app {
+  background: #f1f1f1;
+  height: 100vh;
+  padding-top: 100px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-content {
+  display: flex;
+  .sidebar {
+    width: 30%;
+    & > * {
+      margin-bottom: 20px;
+    }
+  }
+  .content {
+    width: 70%;
+
+    .background {
+      border-radius: 4px;
+      padding: 20px;
+    }
+  }
+}

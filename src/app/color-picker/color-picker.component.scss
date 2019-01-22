@@ -1,0 +1,107 @@
+.color-picker {
+  $radius: 5px;
+  .summary-info {
+    box-shadow: 0 7px 13px 0 rgba(86, 95, 102, 0.07);
+    background: #fff;
+    max-width: 240px;
+    padding: 15px;
+    border-radius: $radius;
+    display: flex;
+    cursor: pointer;
+
+    .info {
+      width: calc(100% - 40px); //40px is $size
+      p.style {
+        color: #000;
+        margin-bottom: 5px;
+      }
+      p.style-value {
+        color: #595b65;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  .circle {
+    $size: 40px;
+    height: $size;
+    width: $size;
+    box-sizing: border-box;
+    border-radius: 100%;
+    cursor: pointer;
+    border: 1px solid #dadada;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14);
+  }
+
+  .opened {
+    box-shadow: 0 7px 13px 0 rgba(86, 95, 102, 0.07);
+    background: #fff;
+    max-width: 240px;
+    padding: 15px;
+    border-radius: $radius;
+    position: relative;
+    margin-top: 15px;
+    &:after {
+      border: 10px solid transparent;
+      border-bottom: 10px solid #fff;
+      content: '';
+      right: 10px;
+      position: absolute;
+      top: -20px;
+    }
+
+    .colors {
+      display: flex;
+      flex-wrap: wrap;
+
+      .circle {
+        flex: 40px 0 0;
+        margin-right: 10px;
+        margin-bottom: 10px;
+
+        &:nth-child(5n) {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .hex-code {
+      $height: 45px;
+      display: flex;
+      margin-top: 20px;
+
+      p {
+        width: 50%;
+        text-align: center;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        line-height: $height;
+      }
+
+      .g-input {
+        border: 1px solid #e8ebed;
+        height: $height;
+        border-radius: $radius;
+        width: 120px;
+
+        input {
+          border: none;
+          width: 100%;
+          text-transform: uppercase;
+          outline: none;
+          text-align: center;
+          letter-spacing: 1.5px;
+          color: #595b65;
+          height: 100%;
+          border-radius: $radius;
+          margin: 0;
+          padding: 0;
+        }
+      }
+
+    }
+  }
+}
