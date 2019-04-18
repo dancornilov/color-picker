@@ -2,38 +2,62 @@
   <div class="container main-content">
     <div class="sidebar">
       <div class="picker">
-        <app-color-picker [color]="backgroundColor" [heading]="'Background'"
-                          (event)="setColor('background', $event)"></app-color-picker>
+        <app-color-picker [formControl]="backgroundColor" [colorList]="colorsList" [heading]="'Background'"></app-color-picker>
       </div>
 
       <div class="picker">
-        <app-color-picker [color]="fontColor" [heading]="'Font'" (event)="setColor('font', $event)"></app-color-picker>
+        <app-color-picker [formControl]="fontColor" [colorList]="colorsList" [heading]="'Font'"></app-color-picker>
       </div>
 
       <div class="picker">
-        <app-color-picker [color]="linkColor" [heading]="'Links'" (event)="setColor('link', $event)"></app-color-picker>
+        <app-color-picker [formControl]="linkColor" [colorList]="colorsList" [heading]="'Links'"></app-color-picker>
       </div>
     </div>
 
     <div class="content">
-      <div class="background" [ngStyle]="{background: backgroundColor}">
-        <p [ngStyle]="{color: fontColor}">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-          eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-          clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-          consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-          takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-          diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-          accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
-          dolor sit amet.</p>
-
-        <a [ngStyle]="{color: linkColor}"
-           href="https://medium.com/@dancornilov/angular-5-color-picker-component-be-colorfully-7e8b12c27ac0"
-           target="_blank">
-          Go to Color Picker Article
-        </a>
+      <div class="background" [ngStyle]="{'background-color': backgroundColor.value}">
+        <p [ngStyle]="{color: fontColor.value}">
+          Pristine ? : {{backgroundColor.pristine | json}}<br>
+          Touched ? : {{backgroundColor.touched | json}}<br>
+          Status : {{backgroundColor.status | json}}
+        </p>
+        <p [ngStyle]="{color: fontColor.value}">
+          Errors :
+        </p>
+        <p *ngFor="let err of backgroundColor.errors | keyvalue" [ngStyle]="{color: fontColor.value}">
+          - {{err.key}} : <b>{{err.value | json}}</b>
+        </p>
       </div>
+      <div class="background" [ngStyle]="{'background-color': backgroundColor.value}">
+        <p [ngStyle]="{color: fontColor.value}">
+            Pristine ? : {{fontColor.pristine | json}}<br>
+            Touched ? : {{fontColor.touched | json}}<br>
+          Status : {{fontColor.status | json}}
+        </p>
+        <p [ngStyle]="{color: fontColor.value}">
+          Errors :
+        </p>
+        <p *ngFor="let err of fontColor.errors | keyvalue" [ngStyle]="{color: fontColor.value}">
+          - {{err.key}} : <b>{{err.value | json}}</b>
+        </p>
+      </div>
+      <div class="background" [ngStyle]="{'background-color': backgroundColor.value}">
+        <p [ngStyle]="{color: linkColor.value}">
+            Pristine ? : {{linkColor.pristine | json}}<br>
+            Touched ? : {{linkColor.touched | json}}<br>
+          Status : {{linkColor.status | json}}
+        </p>
+        <p [ngStyle]="{color: linkColor.value}">
+          Errors :
+        </p>
+        <p *ngFor="let err of linkColor.errors | keyvalue" [ngStyle]="{color: linkColor.value}">
+          - {{err.key}} : <b>{{err.value | json}}</b>
+        </p>
+      </div>
+      <a [ngStyle]="{color: linkColor}" href="https://medium.com/@dancornilov/angular-5-color-picker-component-be-colorfully-7e8b12c27ac0"
+        target="_blank">
+        Go to Color Picker Article
+      </a>
     </div>
   </div>
 </div>

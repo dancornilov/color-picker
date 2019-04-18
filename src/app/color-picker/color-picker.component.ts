@@ -1,75 +1,79 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+const CUSTOM_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => ColorPickerComponent),
+  multi: true,
+};
 
 @Component({
   selector: 'app-color-picker',
   templateUrl: './color-picker.component.html',
-  styleUrls: ['./color-picker.component.scss']
+  styleUrls: ['./color-picker.component.scss'],
+  providers: [CUSTOM_VALUE_ACCESSOR],
+  encapsulation: ViewEncapsulation.None
 })
-export class ColorPickerComponent {
+export class ColorPickerComponent implements ControlValueAccessor {
   @Input() heading: string;
-  @Input() color: string;
-  @Output() event: EventEmitter<string> = new EventEmitter<string>();
-
+  _color: string;
+  @Input() colorList: string[];
   public show = false;
-  public defaultColors: string[] = [
-    '#ffffff',
-    '#000105',
-    '#3e6158',
-    '#3f7a89',
-    '#96c582',
-    '#b7d5c4',
-    '#bcd6e7',
-    '#7c90c1',
-    '#9d8594',
-    '#dad0d8',
-    '#4b4fce',
-    '#4e0a77',
-    '#a367b5',
-    '#ee3e6d',
-    '#d63d62',
-    '#c6a670',
-    '#f46600',
-    '#cf0500',
-    '#efabbd',
-    '#8e0622',
-    '#f0b89a',
-    '#f0ca68',
-    '#62382f',
-    '#c97545',
-    '#c1800b'
-  ];
 
+  disabled = false;
+
+  onChange = (_: any) => { };
+  onTouched = () => { };
   constructor() {
   }
 
+  writeValue(obj: string): void {
+    this._color = obj;
+    // this.onChange(obj);
+  }
+
+
+  registerOnChange(fn: (_: string) => {}): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => {}): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+
   /**
    * Change color from default colors
-   * @param {string} color
    */
   public changeColor(color: string): void {
-    this.color = color;
-    this.event.emit(this.color);
+    this._color = color;
+    this.onChange(this._color);
     this.show = false;
   }
 
 
   /**
    * Change color from input
-   * @param {string} color
    */
   public changeColorManual(color: string): void {
-    const isValid = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
+    const isValid = /(^#[0-9A-F]{6}$)/i.test(color);
 
     if (isValid) {
-      this.color = color;
-      this.event.emit(this.color);
+      this._color = color;
     }
+    this.onChange(this._color);
   }
 
   /**
    * Change status of visibility to color picker
    */
   public toggleColors(): void {
-    this.show = !this.show;
+    if (!this.disabled) {
+      this.show = !this.show;
+    }
   }
 }

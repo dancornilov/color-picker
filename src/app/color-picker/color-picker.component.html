@@ -2,25 +2,22 @@
   <div class="summary-info" (click)="toggleColors()">
     <div class="info">
       <p class="style">{{ heading }}</p>
-      <p class="style-value">{{ color }}</p>
+      <p class="style-value">{{ _color }}</p>
     </div>
 
-    <div class="circle" [ngStyle]="{'background': color}"></div>
+    <div class="circle" [ngStyle]="{'background': _color}"></div>
   </div>
 
   <div *ngIf="show" class="opened">
     <div class="colors">
-      <div (click)="changeColor(paint)" *ngFor="let paint of defaultColors" class="circle"
-           [ngStyle]="{'background': paint}"></div>
+      <div (click)="onTouched();changeColor(paint)" *ngFor="let paint of colorList" class="circle" [ngStyle]="{'background': paint}"></div>
     </div>
 
     <div class="hex-code">
       <p>Hex Code</p>
       <div class="g-input">
-        <input type="text" maxlength="7" [value]="color"
-               (keyup)="changeColorManual(paintInput.value)"
-               (keydown.enter)="toggleColors()"
-               #paintInput/>
+        <input type="text" maxlength="7" [value]="_color" (keyup)="onTouched();onChange(paintInput.value)" (keydown.enter)="onChange(paintInput.value);toggleColors()"
+          #paintInput />
       </div>
     </div>
   </div>
