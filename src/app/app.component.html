@@ -15,25 +15,49 @@
     </div>
 
     <div class="content">
-      <div class="background" [ngStyle]="{background: backgroundColor}">
+      <div class="background" [ngStyle]="{'background-color': backgroundColor.value}">
         <p [ngStyle]="{color: fontColor.value}">
-          {{backgroundColor | json}}
-
+          Pristine ? : {{backgroundColor.pristine | json}}<br>
+          Touched ? : {{backgroundColor.touched | json}}<br>
+          Status : {{backgroundColor.status | json}}
         </p>
         <p [ngStyle]="{color: fontColor.value}">
-          {{fontColor | json}}
-
+          Errors :
         </p>
-        <p [ngStyle]="{color: fontColor.value}">
-          {{linkColor | json}}
-
+        <p *ngFor="let err of backgroundColor.errors | keyvalue" [ngStyle]="{color: fontColor.value}">
+          - {{err.key}} : <b>{{err.value | json}}</b>
         </p>
-
-        <a [ngStyle]="{color: linkColor}" href="https://medium.com/@dancornilov/angular-5-color-picker-component-be-colorfully-7e8b12c27ac0"
-          target="_blank">
-          Go to Color Picker Article
-        </a>
       </div>
+      <div class="background" [ngStyle]="{'background-color': backgroundColor.value}">
+        <p [ngStyle]="{color: fontColor.value}">
+            Pristine ? : {{fontColor.pristine | json}}<br>
+            Touched ? : {{fontColor.touched | json}}<br>
+          Status : {{fontColor.status | json}}
+        </p>
+        <p [ngStyle]="{color: fontColor.value}">
+          Errors :
+        </p>
+        <p *ngFor="let err of fontColor.errors | keyvalue" [ngStyle]="{color: fontColor.value}">
+          - {{err | json}}
+        </p>
+      </div>
+      <div class="background" [ngStyle]="{'background-color': backgroundColor.value}">
+        <p [ngStyle]="{color: linkColor.value}">
+            Pristine ? : {{linkColor.pristine | json}}<br>
+            Touched ? : {{linkColor.touched | json}}<br>
+          Status : {{linkColor.status | json}}
+        </p>
+        <p [ngStyle]="{color: linkColor.value}">
+          Errors :
+        </p>
+        <p *ngFor="let err of linkColor.errors | keyvalue" [ngStyle]="{color: linkColor.value}">
+          - {{err | json}}
+        </p>
+      </div>
+      <a [ngStyle]="{color: linkColor}" href="https://medium.com/@dancornilov/angular-5-color-picker-component-be-colorfully-7e8b12c27ac0"
+        target="_blank">
+        Go to Color Picker Article
+      </a>
     </div>
   </div>
 </div>

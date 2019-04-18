@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, AbstractControl } from '@angular/forms';
+import { FormControl, AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -39,18 +39,18 @@ export class AppComponent implements OnInit {
     '#c1800b'
   ];
 
-  private colorValidator = (control: AbstractControl) => {
-    if (control.value !== undefined
-      && (!control.value.startsWith('#') || (this.colorsList && this.colorsList.indexOf(control.value.toLowerCase()) === -1))) {
-        console.log(control.value + ' INVALID');
+  private colorValidator: ValidatorFn = (control: AbstractControl) => {
+    console.log(control.value + ' INVALID');
         console.log('ColorsList : ' + this.colorsList);
         console.log('Index : ' + this.colorsList.indexOf(control.value));
-      return { 'colorValue': true };
+    if (control.value !== undefined
+      && (!control.value.startsWith('#') || (this.colorsList && this.colorsList.indexOf(control.value.toLowerCase()) === -1))) {
+      return { 'colorValue': control.value};
     }
     return null;
   }
   ngOnInit() {
-    this.backgroundColor = new FormControl('#ffffff', [this.colorValidator]);
+    this.backgroundColor = new FormControl('#ffffff', [this.colorValidator, Validators.minLength(7)]);
     this.fontColor = new FormControl('#222222', this.colorValidator);
     this.linkColor = new FormControl('#4b4fce', this.colorValidator);
   }

@@ -28,7 +28,7 @@ export class ColorPickerComponent implements ControlValueAccessor {
 
   writeValue(obj: string): void {
     this._color = obj;
-    this.onChange(obj);
+    // this.onChange(obj);
   }
 
 
@@ -50,7 +50,7 @@ export class ColorPickerComponent implements ControlValueAccessor {
    */
   public changeColor(color: string): void {
     this._color = color;
-    this.writeValue(color);
+    this.onChange(this._color);
     this.show = false;
   }
 
@@ -59,11 +59,12 @@ export class ColorPickerComponent implements ControlValueAccessor {
    * Change color from input
    */
   public changeColorManual(color: string): void {
-    const isValid = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
+    const isValid = /(^#[0-9A-F]{6}$)/i.test(color);
 
     if (isValid) {
       this._color = color;
     }
+    this.onChange(this._color);
   }
 
   /**

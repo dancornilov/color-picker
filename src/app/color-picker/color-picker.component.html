@@ -16,7 +16,7 @@
     <div class="hex-code">
       <p>Hex Code</p>
       <div class="g-input">
-        <input type="text" maxlength="7" [value]="_color" (keyup)="onTouched();changeColorManual(paintInput.value)" (keydown.enter)="toggleColors()"
+        <input type="text" maxlength="7" [value]="_color" (keyup)="onTouched();onChange(paintInput.value)" (keydown.enter)="onChange(paintInput.value);toggleColors()"
           #paintInput />
       </div>
     </div>
