@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const CUSTOM_VALUE_ACCESSOR: any = {
@@ -11,7 +11,8 @@ const CUSTOM_VALUE_ACCESSOR: any = {
   selector: 'app-color-picker',
   templateUrl: './color-picker.component.html',
   styleUrls: ['./color-picker.component.scss'],
-  providers: [CUSTOM_VALUE_ACCESSOR]
+  providers: [CUSTOM_VALUE_ACCESSOR],
+  encapsulation: ViewEncapsulation.None
 })
 export class ColorPickerComponent implements ControlValueAccessor {
   @Input() heading: string;

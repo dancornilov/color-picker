@@ -105,3 +105,11 @@
     }
   }
 }
+
+.ng-valid .summary-info {
+  background-color: rgba(0, 255, 21, 0.2);
+}
+
+.ng-invalid .summary-info {
+  background-color: rgba(255, 0, 0, 0.2);
+}

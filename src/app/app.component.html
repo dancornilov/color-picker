@@ -38,7 +38,7 @@
           Errors :
         </p>
         <p *ngFor="let err of fontColor.errors | keyvalue" [ngStyle]="{color: fontColor.value}">
-          - {{err | json}}
+          - {{err.key}} : <b>{{err.value | json}}</b>
         </p>
       </div>
       <div class="background" [ngStyle]="{'background-color': backgroundColor.value}">
@@ -51,7 +51,7 @@
           Errors :
         </p>
         <p *ngFor="let err of linkColor.errors | keyvalue" [ngStyle]="{color: linkColor.value}">
-          - {{err | json}}
+          - {{err.key}} : <b>{{err.value | json}}</b>
         </p>
       </div>
       <a [ngStyle]="{color: linkColor}" href="https://medium.com/@dancornilov/angular-5-color-picker-component-be-colorfully-7e8b12c27ac0"

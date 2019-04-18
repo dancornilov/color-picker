@@ -40,9 +40,6 @@ export class AppComponent implements OnInit {
   ];
 
   private colorValidator: ValidatorFn = (control: AbstractControl) => {
-    console.log(control.value + ' INVALID');
-        console.log('ColorsList : ' + this.colorsList);
-        console.log('Index : ' + this.colorsList.indexOf(control.value));
     if (control.value !== undefined
       && (!control.value.startsWith('#') || (this.colorsList && this.colorsList.indexOf(control.value.toLowerCase()) === -1))) {
       return { 'colorValue': control.value};
