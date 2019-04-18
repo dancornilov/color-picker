@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,34 +7,52 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public backgroundColor: string;
-  public fontColor: string;
-  public linkColor: string;
+  public backgroundColor: FormControl;
+  public fontColor: FormControl;
+  public linkColor: FormControl;
 
-  ngOnInit() {
-    this.backgroundColor = '#fff';
-    this.fontColor = '#222';
-    this.linkColor = '#4b4fce';
-  }
+  colorsList = [
+    '#ffffff',
+    '#000105',
+    '#3e6158',
+    '#3f7a89',
+    '#96c582',
+    '#b7d5c4',
+    '#bcd6e7',
+    '#7c90c1',
+    '#9d8594',
+    '#dad0d8',
+    '#4b4fce',
+    '#4e0a77',
+    '#a367b5',
+    '#ee3e6d',
+    '#d63d62',
+    '#c6a670',
+    '#f46600',
+    '#cf0500',
+    '#efabbd',
+    '#8e0622',
+    '#f0b89a',
+    '#f0ca68',
+    '#62382f',
+    '#c97545',
+    '#c1800b'
+  ];
 
-  /**
-   * Set color from color picker
-   * @param {string} type
-   * @param {string} color
-   */
-  public setColor(type: string, color: string) {
-    switch (type) {
-      case 'background':
-        this.backgroundColor = color;
-        break;
-      case 'font':
-        this.fontColor = color;
-        break;
-      case 'link':
-        this.linkColor = color;
-        break;
-      default:
-        break;
+  private colorValidator = (control: AbstractControl) => {
+    if (control.value !== undefined
+      && (!control.value.startsWith('#') || (this.colorsList && this.colorsList.indexOf(control.value.toLowerCase()) === -1))) {
+        console.log(control.value + ' INVALID');
+        console.log('ColorsList : ' + this.colorsList);
+        console.log('Index : ' + this.colorsList.indexOf(control.value));
+      return { 'colorValue': true };
     }
+    return null;
   }
+  ngOnInit() {
+    this.backgroundColor = new FormControl('#ffffff', [this.colorValidator]);
+    this.fontColor = new FormControl('#222222', this.colorValidator);
+    this.linkColor = new FormControl('#4b4fce', this.colorValidator);
+  }
+
 }
